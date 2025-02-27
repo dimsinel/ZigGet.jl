@@ -3,8 +3,24 @@ uuid = "64448d04-f91e-4661-b706-50d7101e37ac"
 authors = ["dimsinel <dimsinel@gmail.com> and contributors"]
 version = "1.0.0-DEV"
 
+[deps]
+CodecXz = "ba30903b-d9e8-5048-a5ec-d1f5b0d4b47b"
+Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
+Downloads = "f43a241f-c20a-4ad4-852c-f6b1247861c6"
+HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
+JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
+SHA = "ea8e919c-243c-51af-8825-aaa63cd721ce"
+Tar = "a4e569a6-e804-4fa4-b0f3-eef7a1d5b13e"
+
 [compat]
-julia = "1.6.7"
+CodecXz = "0.7.4"
+Dates = "1.11.0"
+Downloads = "1.6.0"
+HTTP = "1.10.15"
+JSON = "0.21.4"
+SHA = "0.7.0"
+Tar = "1.10.0"
+julia = "1.10"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
