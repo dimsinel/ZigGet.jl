@@ -194,7 +194,51 @@ end
 
 ###################################
 
-#extract_zig(dat; zigdir="/opt/zig")
+function cleanup_local_versions()
+
+    listzig_cmd = `update-alternatives --list zig`
+    sout, serr, cd = ZigGet.communicate(listzig_cmd, "")
+    sout = split(sout, "\n")
+    verss = Dict{Int,String}()
+    for (i, ver) in enumerate(sout)
+        if length(ver) > 0
+            verss[i] = ver
+            println(" $i : $ver ")
+        end
+    end
+    println("Do you want to remove any of these versions? \n [ Space, then Enter, then enter digit(s)]!!!")
+
+    n = readline()
+    ns = []
+    try
+        ns = split(n)
+        ns = parse.(Int, ns)
+    catch e
+        ns = split(n, ",")
+        ns = parse.(Int, ns)
+    end
+
+    for n in ns
+        if haskey(verss, n)
+            println("Remove $(verss[n])? [y/N]")
+            ans = readline()
+            if ans == "y" || ans == "Y"
+                fin = findlast("/zig", verss[n])
+                if fin[1] > 2
+                    dest = verss[n][1:fin[1]]
+                    commadnd = `sudo update-alternatives --remove zig $(verss[n])`
+                    sout, serr, cd = ZigGet.communicate(commadnd, "")
+                end
+                rm(dest, recursive=true)
+            end
+        end
+    end
+
+    println(" $n.")
+
+end
+
+
 
 #################################
 function get_zig(myversion="master")
@@ -238,7 +282,7 @@ function get_zig(myversion="master")
     download_zig(dat; zigdir="/opt/zig")
     extract_zig(dat; zigdir="/opt/zig")
     #println("zig url = $(zig_latest_url) ")#Downloading latest version $version")
-
+    cleanup_local_versions()
 end
 #################################################
 
